@@ -1,3 +1,4 @@
+#!usr/bin/node
 import hostile = require("hostile");
 import program = require("commander");
 import { promisify } from "es6-promisify";
