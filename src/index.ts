@@ -55,7 +55,6 @@ export async function getAllIPFromDNS(host: string) {
     }
 
     let res = await Promise.all(promises);
-    console.log(res);
     let ips: string[] = [];
     let addressItems: { [name: string]: number } = {};
     let items: {

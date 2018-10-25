@@ -45,7 +45,6 @@ function getAllIPFromDNS(host) {
             }));
         }
         let res = yield Promise.all(promises);
-        console.log(res);
         let ips = [];
         let addressItems = {};
         let items = [];
