@@ -1,6 +1,6 @@
 {
   "name": "fastest-hosts",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A tool to set the fastest host for domain name.",
   "main": "dist/index.js",
   "types": "src/index.ts",
