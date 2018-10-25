@@ -47,19 +47,35 @@ function getAllIPFromDNS(host) {
         }
         let res = yield Promise.all(promises);
         let ips = [];
-        res.forEach((item) => {
+        let addressItems = {};
+        let items = [];
+        res.forEach((line) => {
             try {
-                let data = JSON.parse(item.slice(1, -1));
+                let data = JSON.parse(line.slice(1, -1));
                 if (data && typeof data.list == "object") {
-                    let list = data.list;
-                    list.forEach(_item => {
-                        if (!ips.includes(_item.result)) {
-                            ips.push(_item.result);
-                        }
-                    });
+                    let list = data.list.filter(item => item.type == "A");
+                    for (let item of list) {
+                        if (addressItems[item.ipaddress] === undefined)
+                            addressItems[item.ipaddress] = 0;
+                        addressItems[item.ipaddress]++;
+                        items.push({ address: item.ipaddress, ip: item.result });
+                    }
                 }
             }
             catch (err) { }
+        });
+        if (!items.length)
+            return [];
+        let _tmp = [];
+        for (let address in addressItems) {
+            _tmp.push({ address, count: addressItems[address] });
+        }
+        _tmp.sort((a, b) => b.count - a.count);
+        let mainAddress = _tmp[0].address;
+        items.forEach(item => {
+            if (item.address == mainAddress && !ips.includes(item.ip)) {
+                ips.push(item.ip);
+            }
         });
         return ips;
     });

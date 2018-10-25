@@ -21,9 +21,13 @@ program.version(version)
             let host: string = program.set;
             let ip = await getFastestIp(host);
 
-            await setRule(ip, host);
+            if (ip) {
+                await setRule(ip, host);
 
-            console.log(`'${host}' is set to '${ip}' now`);
+                console.log(`'${host}' is set to '${ip}' now`);
+            } else {
+                console.log(`no IP detected of '${host}'`);
+            }
         } else if (program.remove) {
             let host: string = program.remove;
             let lines = await getAllRules(false);

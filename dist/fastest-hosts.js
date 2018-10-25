@@ -19,8 +19,13 @@ program.version(version)
         if (program.set) {
             let host = program.set;
             let ip = yield index_1.getFastestIp(host);
-            yield setRule(ip, host);
-            console.log(`'${host}' is set to '${ip}' now`);
+            if (ip) {
+                yield setRule(ip, host);
+                console.log(`'${host}' is set to '${ip}' now`);
+            }
+            else {
+                console.log(`no IP detected of '${host}'`);
+            }
         }
         else if (program.remove) {
             let host = program.remove;
