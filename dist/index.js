@@ -37,7 +37,6 @@ function getAllIPFromDNS(host) {
                 formData: data,
                 headers: {
                     "Accept": "text/javascript, application/javascript, application/ecmascript, application/x-ecmascript, */*; q=0.01",
-                    "Accept-Encoding": "gzip, deflate",
                     "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
                     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36",
                     "Referer": `${baseUrl}/dns/?type=1&host=${host}`,
@@ -46,6 +45,7 @@ function getAllIPFromDNS(host) {
             }));
         }
         let res = yield Promise.all(promises);
+        console.log(res);
         let ips = [];
         let addressItems = {};
         let items = [];
